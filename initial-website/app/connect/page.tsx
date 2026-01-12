@@ -22,6 +22,8 @@ import {
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
+
+
 export default function ContactPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Renamed to match Portfolio page logic
   const [formData, setFormData] = useState({
@@ -32,6 +34,11 @@ export default function ContactPage() {
     topic: '',
     message: ''
   });
+
+// change the tab title instantly
+  useEffect(() => {
+    document.title = "Connect | Initial Ventures";
+  }, []);
 
   // Prevent scrolling when sidebar is open
   useEffect(() => {
