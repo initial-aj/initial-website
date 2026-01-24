@@ -99,19 +99,49 @@ export default function LandingPage() {
     const fetchNews = async () => {
       setIsLoadingNews(true);
       try {
-        const response = await fetch('/api/news?company=crypto blockchain solana ethereum&currency=BTC,ETH,SOL&limit=6');
+        // Portfolio company names for news search
+        const portfolioCompanies = [
+          'Backpack', 'RateX', 'Rate X', 'Raiku', 'Primus Labs', 'Solayer',
+          'Lombard', 'Perena', 'StackingDAO', 'ZEUS Network',
+          'Titan Exchange', 'OpenEden', 'Sidekick', 'BitFlow'
+        ];
+
+        // Create search query focusing on portfolio companies
+        const companyQuery = portfolioCompanies.join(' OR ');
+        const response = await fetch(`/api/news?company=${encodeURIComponent(companyQuery)}&currency=BTC,ETH,SOL&limit=10`);
         const data = await response.json();
 
         if (data.success && data.articles.length > 0) {
-          const formattedNews = data.articles.map((article: any) => ({
-            id: article.id,
-            company: article.company || 'Crypto',
-            title: article.title,
-            date: new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase(),
-            source: article.source,
-            url: article.url,
-          }));
-          setNews(formattedNews);
+          // Filter to only include articles that mention portfolio companies
+          const filteredArticles = data.articles.filter((article: any) => {
+            const titleLower = article.title.toLowerCase();
+            const summaryLower = article.summary.toLowerCase();
+
+            return portfolioCompanies.some(company =>
+              titleLower.includes(company.toLowerCase()) ||
+              summaryLower.includes(company.toLowerCase())
+            );
+          });
+
+          if (filteredArticles.length > 0) {
+            const formattedNews = filteredArticles.slice(0, 6).map((article: any) => {
+              // Try to identify which portfolio company this is about
+              const mentionedCompany = portfolioCompanies.find(company =>
+                article.title.toLowerCase().includes(company.toLowerCase()) ||
+                article.summary.toLowerCase().includes(company.toLowerCase())
+              );
+
+              return {
+                id: article.id,
+                company: mentionedCompany || 'Portfolio',
+                title: article.title,
+                date: new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase(),
+                source: article.source,
+                url: article.url,
+              };
+            });
+            setNews(formattedNews);
+          }
         }
       } catch (error) {
         console.error('Error fetching news:', error);
