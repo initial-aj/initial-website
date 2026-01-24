@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "about": "About",
+    "portfolio": "Portfolio",
+    "insights": "Insights",
+    "careers": "Careers",
+    "jobs": "Jobs",
+    "connect": "Connect",
+    "team": "Team"
+  },
+  "home": {
+    "title": "Initial Ventures",
+    "fundIntroTitle": "Our Funds",
+    "ultronFund": {
+      "title": "Ultron Fund",
+      "description": "Ultron Fund is a quantitative hedge fund focused on digital assets. Leveraging proprietary market-making algorithms and liquidity provisioning strategies, we deliver consistent, risk-adjusted returns in volatile markets."
+    },
+    "ventureFund": {
+      "title": "Venture Fund",
+      "description": "Our Venture Fund invests in early-stage Web3 projects pushing the boundaries of decentralized technology—from Layer 1 protocols to DeFi infrastructure and consumer applications. We partner with visionary founders to accelerate innovation."
+    },
+    "latestNews": "Latest Portfolio News",
+    "readMore": "Read More"
+  },
+  "portfolio": {
+    "title": "Builders We've Supported",
+    "filterFocusArea": "Focus Area",
+    "filterStage": "Stage",
+    "filterStatus": "Status",
+    "allCompanies": "All Companies",
+    "learnMore": "Learn More",
+    "close": "Close"
+  },
+  "jobs": {
+    "title": "Career Opportunities",
+    "subtitle": "Join the teams building the future of Web3. Explore opportunities across our portfolio companies.",
+    "postJob": "Post a Job",
+    "cancel": "Cancel",
+    "positionsAvailable": "positions available",
+    "positionAvailable": "position available",
+    "submitJobTitle": "Submit a Job Posting",
+    "jobTitle": "Job Title",
+    "company": "Company",
+    "location": "Location",
+    "jobType": "Job Type",
+    "category": "Category",
+    "salaryRange": "Salary Range",
+    "jobDescription": "Job Description",
+    "requirements": "Requirements",
+    "applicationUrl": "Application URL",
+    "submitButton": "Submit Job Posting",
+    "searchPlaceholder": "Search jobs, companies, keywords...",
+    "all": "All",
+    "fullTime": "Full-time",
+    "partTime": "Part-time",
+    "contract": "Contract",
+    "internship": "Internship",
+    "engineering": "Engineering",
+    "marketing": "Marketing",
+    "design": "Design",
+    "community": "Community",
+    "operations": "Operations",
+    "businessDev": "Business Development",
+    "remote": "Remote",
+    "noJobs": "No jobs found matching your criteria.",
+    "applyNow": "Apply Now",
+    "posted": "Posted"
+  },
+  "connect": {
+    "title": "Get in Touch",
+    "subtitle": "Interested in partnering or learning more? We'd love to hear from you."
+  },
+  "footer": {
+    "tagline": "Building the future of Web3",
+    "copyright": "Initial Ventures. All rights reserved.",
+    "followUs": "Follow Initial Ventures"
+  },
+  "sidebar": {
+    "aboutUs": "About Us"
+  }
+}

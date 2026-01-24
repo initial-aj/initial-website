@@ -8,9 +8,9 @@ import {
   Menu,
   X,
   ArrowRight,
-  Moon,
-  Globe
 } from 'lucide-react';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import SearchModal from '@/components/SearchModal';
 
 // --- MOCK DATA (Updated with URLs) ---
 // In a real live version, you would replace this array with data fetched from an API
@@ -82,6 +82,7 @@ const TelegramIcon = ({ className }: { className?: string }) => (
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -92,7 +93,9 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-[#FBFBFB] text-slate-900 font-sans selection:bg-orange-200" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <main className="min-h-screen bg-[#FBFBFB] text-slate-900 font-sans selection:bg-orange-200" style={{ fontFamily: 'Inter, sans-serif' }}>
       
       {/* ================= SECTION 1: NAVIGATION BAR ================= */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
@@ -118,13 +121,11 @@ export default function LandingPage() {
 
           {/* Right Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <button className="p-2 text-slate-600 hover:text-slate-900 transition-colors">
-                <Globe className="w-5 h-5" />
-            </button>
-            <button className="p-2 text-slate-600 hover:text-slate-900 transition-colors">
-                <Moon className="w-5 h-5" />
-            </button>
-            <button className="p-2 text-slate-600 hover:text-slate-900 transition-colors">
+            <LanguageSwitcher />
+            <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-slate-600 hover:text-slate-900 transition-colors"
+            >
                 <Search className="w-5 h-5" />
             </button>
           </div>
@@ -308,5 +309,6 @@ export default function LandingPage() {
         </div>
       </footer>
     </main>
+    </>
   );
 }

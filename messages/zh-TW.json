@@ -1,0 +1,81 @@
+{
+  "nav": {
+    "about": "關於",
+    "portfolio": "投資組合",
+    "insights": "洞見",
+    "careers": "職涯",
+    "jobs": "職缺",
+    "connect": "聯繫",
+    "team": "團隊"
+  },
+  "home": {
+    "title": "Initial Ventures",
+    "fundIntroTitle": "我們的基金",
+    "ultronFund": {
+      "title": "Ultron 基金",
+      "description": "Ultron 基金是一個專注於數字資產的量化對沖基金。利用專有的做市算法和流動性提供策略，我們在波動市場中提供穩定的風險調整回報。"
+    },
+    "ventureFund": {
+      "title": "創投基金",
+      "description": "我們的創投基金投資於早期 Web3 項目，推動去中心化技術的界限——從第一層協議到 DeFi 基礎設施和消費者應用。我們與有遠見的創始人合作，加速創新。"
+    },
+    "latestNews": "投資組合最新消息",
+    "readMore": "閱讀更多"
+  },
+  "portfolio": {
+    "title": "我們支持的建設者",
+    "filterFocusArea": "專注領域",
+    "filterStage": "階段",
+    "filterStatus": "狀態",
+    "allCompanies": "所有公司",
+    "learnMore": "了解更多",
+    "close": "關閉"
+  },
+  "jobs": {
+    "title": "職業機會",
+    "subtitle": "加入正在建設 Web3 未來的團隊。探索我們投資組合公司的機會。",
+    "postJob": "發布職缺",
+    "cancel": "取消",
+    "positionsAvailable": "個職位",
+    "positionAvailable": "個職位",
+    "submitJobTitle": "提交職缺",
+    "jobTitle": "職位名稱",
+    "company": "公司",
+    "location": "地點",
+    "jobType": "工作類型",
+    "category": "類別",
+    "salaryRange": "薪資範圍",
+    "jobDescription": "職位描述",
+    "requirements": "要求",
+    "applicationUrl": "申請網址",
+    "submitButton": "提交職缺",
+    "searchPlaceholder": "搜尋職缺、公司、關鍵字...",
+    "all": "全部",
+    "fullTime": "全職",
+    "partTime": "兼職",
+    "contract": "合約",
+    "internship": "實習",
+    "engineering": "工程",
+    "marketing": "市場",
+    "design": "設計",
+    "community": "社群",
+    "operations": "營運",
+    "businessDev": "業務發展",
+    "remote": "遠程",
+    "noJobs": "沒有符合條件的職缺。",
+    "applyNow": "立即申請",
+    "posted": "發布於"
+  },
+  "connect": {
+    "title": "聯繫我們",
+    "subtitle": "有興趣合作或了解更多？我們很樂意聽到您的聲音。"
+  },
+  "footer": {
+    "tagline": "建設 Web3 的未來",
+    "copyright": "Initial Ventures. 版權所有。",
+    "followUs": "關注 Initial Ventures"
+  },
+  "sidebar": {
+    "aboutUs": "關於我們"
+  }
+}
