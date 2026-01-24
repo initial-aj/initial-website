@@ -3,12 +3,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Playfair_Display, Inter } from 'next/font/google';
-import { 
-  Globe, 
-  Moon, 
-  Search, 
-  Menu, 
+import {
+  Globe,
+  Moon,
+  Search,
+  Menu,
   X,
   Twitter,
   Linkedin,
@@ -18,9 +17,6 @@ import {
   Check,
   ChevronDown
 } from 'lucide-react';
-
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 
 
@@ -58,7 +54,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className={`${playfair.variable} ${inter.variable} min-h-screen bg-[#FBFBFB] text-slate-900 font-sans selection:bg-orange-200 flex flex-col`}>
+    <main className="min-h-screen bg-[#FBFBFB] text-slate-900 font-sans selection:bg-orange-200 flex flex-col"style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
       
       {/* ================= NAVIGATION BAR ================= */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm py-4">

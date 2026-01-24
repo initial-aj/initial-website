@@ -3,19 +3,14 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Playfair_Display, Inter } from 'next/font/google'; 
-import { 
-  Search, 
-  Menu, 
-  X, 
-  ArrowRight, 
-  Moon, 
-  Globe 
+import {
+  Search,
+  Menu,
+  X,
+  ArrowRight,
+  Moon,
+  Globe
 } from 'lucide-react';
-
-// --- FONTS SETUP ---
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 // --- MOCK DATA (Updated with URLs) ---
 // In a real live version, you would replace this array with data fetched from an API
@@ -97,7 +92,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <main className={`${playfair.variable} ${inter.variable} min-h-screen bg-[#FBFBFB] text-slate-900 font-sans selection:bg-orange-200`}>
+    <main className="min-h-screen bg-[#FBFBFB] text-slate-900 font-sans selection:bg-orange-200" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
       
       {/* ================= SECTION 1: NAVIGATION BAR ================= */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>

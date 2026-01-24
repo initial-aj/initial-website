@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 // ✅ Import the new component
-import DynamicTitle from "@/components/DynamicTitle"; 
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+import DynamicTitle from "@/components/DynamicTitle";
 
 export const metadata: Metadata = {
   title: "Initial Ventures",
@@ -20,9 +16,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${playfair.variable} font-sans`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Playfair+Display:wght@400..900&display=swap" rel="stylesheet" />
+      </head>
+      <body className="font-sans" style={{ fontFamily: 'var(--font-inter, Inter, system-ui, sans-serif)' }}>
         {/* ✅ Place the component here, right at the top of the body */}
-        <DynamicTitle /> 
+        <DynamicTitle />
         {children}
       </body>
     </html>

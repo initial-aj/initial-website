@@ -3,15 +3,14 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Playfair_Display, Inter } from 'next/font/google'; 
-import { 
-  Search, 
-  ChevronDown, 
-  X, 
-  Facebook, 
-  Linkedin, 
-  Instagram, 
-  Globe, 
+import {
+  Search,
+  ChevronDown,
+  X,
+  Facebook,
+  Linkedin,
+  Instagram,
+  Globe,
   ArrowRight,
   Twitter,
   Check,
@@ -19,9 +18,6 @@ import {
   Menu,
   Moon
 } from 'lucide-react';
-
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
 // --- TYPES & DATA ---
 type Company = {
@@ -317,7 +313,7 @@ export default function Portfolio() {
   };
 
   return (
-    <main className={`${playfair.variable} ${inter.variable} min-h-screen bg-white text-slate-900 font-sans relative flex flex-col`}>
+    <main className="min-h-screen bg-white text-slate-900 font-sans relative flex flex-col" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
       
       {/* ================= NAVIGATION BAR ================= */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 backdrop-blur-md shadow-sm py-4' : 'bg-white py-6'}`}>
