@@ -261,7 +261,7 @@ export default function InsightsPage() {
           {/* Header */}
           <div className="mb-12">
             <h1 className="text-5xl font-bold tracking-tight text-slate-900 mb-4">
-              Crypto Research & Insights
+              Research & Insights
             </h1>
             <p className="text-xl text-slate-600 max-w-3xl">
               Curated research from leading crypto firms. Stay informed on the latest trends, technologies, and market analysis in Web3.
@@ -325,7 +325,7 @@ export default function InsightsPage() {
                         href={paper.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors shadow-md"
+                        className="inline-flex items-center gap-2 text-slate-600 hover:text-blue-600 font-semibold transition-colors"
                       >
                         Read Full Report
                         <ExternalLink className="w-4 h-4" />

@@ -83,6 +83,8 @@ export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [news, setNews] = useState(latestNews);
+  const [isLoadingNews, setIsLoadingNews] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,6 +92,36 @@ export default function LandingPage() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Fetch news on mount
+  useEffect(() => {
+    const fetchNews = async () => {
+      setIsLoadingNews(true);
+      try {
+        const response = await fetch('/api/news?company=crypto blockchain solana ethereum&currency=BTC,ETH,SOL&limit=6');
+        const data = await response.json();
+
+        if (data.success && data.articles.length > 0) {
+          const formattedNews = data.articles.map((article: any) => ({
+            id: article.id,
+            company: article.company || 'Crypto',
+            title: article.title,
+            date: new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase(),
+            source: article.source,
+            url: article.url,
+          }));
+          setNews(formattedNews);
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error);
+        // Keep using fallback data
+      } finally {
+        setIsLoadingNews(false);
+      }
+    };
+
+    fetchNews();
   }, []);
 
   return (
@@ -226,24 +258,24 @@ export default function LandingPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {latestNews.map((news) => (
-                <div key={news.id} className="bg-white border border-gray-50 p-8 hover:shadow-xl hover:-translate-y-0.25 transition-all duration-100 group">
+            {news.map((newsItem) => (
+                <div key={newsItem.id} className="bg-white border border-gray-50 p-8 hover:shadow-xl hover:-translate-y-0.25 transition-all duration-100 group">
                     <div className="flex justify-between items-start mb-6">
                         <span className="text-xs font-bold uppercase tracking-widest text-blue-700 font-sans">
-                            {news.company}
+                            {newsItem.company}
                         </span>
                         <span className="text-xs text-slate-400 font-mono">
-                            {news.date}
+                            {newsItem.date}
                         </span>
                     </div>
                     {/* UPDATED: Title is now a link to the external URL */}
                     <h3 className="text-xl font-serif text-[#1C2B4B] mb-4 decoration-orange-500 underline-offset-4">
-                        <a href={news.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 hover:underline transition-colors">
-                            {news.title}
+                        <a href={newsItem.url} target="_blank" rel="noopener noreferrer" className="hover:text-blue-500 hover:underline transition-colors">
+                            {newsItem.title}
                         </a>
                     </h3>
                     <div className="flex items-center gap-2 text-xs font-medium text-slate-500 mt-auto font-sans">
-                        <span>Source: {news.source}</span>
+                        <span>Source: {newsItem.source}</span>
                         <ArrowRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity -ml-2 group-hover:ml-0 text-orange-500" />
                     </div>
                 </div>
