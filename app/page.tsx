@@ -115,6 +115,7 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600 font-sans">
             <Link href="/" className="text-slate-900 font-bold transition-colors">About</Link>
             <Link href="/portfolio" className="hover:text-slate-900 transition-colors">Portfolio</Link>
+            <Link href="/insights" className="hover:text-slate-900 transition-colors">Insights</Link>
           </div>
 
           {/* Right Actions */}
@@ -142,6 +143,7 @@ export default function LandingPage() {
             <div className="absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-lg p-6 flex flex-col gap-4 md:hidden font-sans">
                 <Link href="/" className="text-lg font-medium">About</Link>
                 <Link href="/portfolio" className="text-lg font-medium">Portfolio</Link>
+                <Link href="/insights" className="text-lg font-medium">Insights</Link>
             </div>
         )}
       </nav>
@@ -218,9 +220,9 @@ export default function LandingPage() {
                 <h4 className="text-orange-500 font-bold text-xs uppercase tracking-widest mb-2 font-sans">Updates</h4>
                 <h2 className="text-4xl font-serif text-[#1C2B4B]">Portfolio News</h2>
             </div>
-            <a href="#" className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-orange-500 transition-colors font-sans">
+            <Link href="/news" className="hidden md:flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-orange-500 transition-colors font-sans">
                 View Archive <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -249,9 +251,9 @@ export default function LandingPage() {
         </div>
         
         <div className="mt-8 md:hidden">
-            <a href="#" className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-orange-500 transition-colors font-sans">
+            <Link href="/news" className="flex items-center gap-2 text-sm font-bold text-slate-500 hover:text-orange-500 transition-colors font-sans">
                 View Archive <ArrowRight className="w-4 h-4" />
-            </a>
+            </Link>
         </div>
       </section>
 

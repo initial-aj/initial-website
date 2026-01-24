@@ -335,6 +335,7 @@ export default function Portfolio() {
           <div className="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600 font-sans">
             <Link href="/" className="hover:text-slate-900 transition-colors">About</Link>
             <Link href="/portfolio" className="text-slate-900 font-bold transition-colors">Portfolio</Link>
+            <Link href="/insights" className="hover:text-slate-900 transition-colors">Insights</Link>
             <Link href="/jobs" className="hover:text-slate-900 transition-colors">Jobs</Link>
             <Link href="/connect" className="hover:text-slate-900 transition-colors">Connect</Link>
           </div>
@@ -391,8 +392,9 @@ export default function Portfolio() {
                     <ul className="space-y-4 text-xl font-medium text-slate-800">
                         <li><Link href="/" className="hover:text-blue-600 transition-colors">About</Link></li>
                         <li><Link href="/portfolio" className="hover:text-blue-600 transition-colors">Portfolio</Link></li>
-                        <li><a href="/jobs" className="hover:text-blue-600 transition-colors">Jobs</a></li>
-                        <li><a href="/connect" className="hover:text-blue-600 transition-colors">Connect</a></li>
+                        <li><Link href="/insights" className="hover:text-blue-600 transition-colors">Insights</Link></li>
+                        <li><Link href="/jobs" className="hover:text-blue-600 transition-colors">Jobs</Link></li>
+                        <li><Link href="/connect" className="hover:text-blue-600 transition-colors">Connect</Link></li>
                     </ul>
                 </div>
             </div>
