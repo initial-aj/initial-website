@@ -35,11 +35,6 @@ export default function ContactPage() {
     message: ''
   });
 
-// change the tab title instantly
-  useEffect(() => {
-    document.title = "Connect | Initial Ventures";
-  }, []);
-
   // Prevent scrolling when sidebar is open
   useEffect(() => {
     if (isSidebarOpen) {
