@@ -115,8 +115,6 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600 font-sans">
             <Link href="/" className="text-slate-900 font-bold transition-colors">About</Link>
             <Link href="/portfolio" className="hover:text-slate-900 transition-colors">Portfolio</Link>
-            <Link href="/jobs" className="hover:text-slate-900 transition-colors">Jobs</Link>
-            <Link href="/connect" className="hover:text-slate-900 transition-colors">Connect</Link>
           </div>
 
           {/* Right Actions */}
@@ -144,8 +142,6 @@ export default function LandingPage() {
             <div className="absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-lg p-6 flex flex-col gap-4 md:hidden font-sans">
                 <Link href="/" className="text-lg font-medium">About</Link>
                 <Link href="/portfolio" className="text-lg font-medium">Portfolio</Link>
-                <Link href="/jobs" className="text-lg font-medium">Jobs</Link>
-                <Link href="/connect" className="text-lg font-medium">Connect</Link>
             </div>
         )}
       </nav>

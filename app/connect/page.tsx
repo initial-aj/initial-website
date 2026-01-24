@@ -4,24 +4,21 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
-  Globe,
-  Moon,
   Search,
   Menu,
   X,
   Twitter,
-  Linkedin,
-  Facebook,
-  Instagram,
-  Youtube,
-  Check,
-  ChevronDown
+  Linkedin
 } from 'lucide-react';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import SearchModal from '@/components/SearchModal';
 
 
 
 export default function ContactPage() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Renamed to match Portfolio page logic
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -30,6 +27,14 @@ export default function ContactPage() {
     topic: '',
     message: ''
   });
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
 // change the tab title instantly
   useEffect(() => {
@@ -54,10 +59,12 @@ export default function ContactPage() {
   };
 
   return (
+    <>
+    <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     <main className="min-h-screen bg-[#FBFBFB] text-slate-900 font-sans selection:bg-orange-200 flex flex-col"style={{ fontFamily: 'Inter, sans-serif' }}>
-      
+
       {/* ================= NAVIGATION BAR ================= */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm py-4">
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' : 'bg-transparent py-6'}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-4 group">
              <div className="relative w-12 h-12 rounded-lg overflow-hidden shadow-sm">
@@ -71,21 +78,25 @@ export default function ContactPage() {
           <div className="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600 font-sans">
             <Link href="/" className="hover:text-slate-900 transition-colors">About</Link>
             <Link href="/portfolio" className="hover:text-slate-900 transition-colors">Portfolio</Link>
-            <Link href="#" className="hover:text-slate-900 transition-colors">Insights</Link>
-            <Link href="#" className="hover:text-slate-900 transition-colors">Policy</Link>
-            <Link href="#" className="hover:text-slate-900 transition-colors">Careers</Link>
+            <Link href="/jobs" className="hover:text-slate-900 transition-colors">Jobs</Link>
+            <Link href="/connect" className="text-slate-900 font-bold transition-colors">Connect</Link>
           </div>
 
           <div className="flex items-center gap-4">
              <div className="hidden md:flex gap-2">
-                <button className="p-2 text-slate-600 hover:text-slate-900 transition-colors"><Globe className="w-5 h-5" /></button>
-                <button className="p-2 text-slate-600 hover:text-slate-900 transition-colors"><Moon className="w-5 h-5" /></button>
+                <LanguageSwitcher />
              </div>
-             <button className="p-2 text-slate-600 hover:text-slate-900 transition-colors"><Search className="w-5 h-5" /></button>
-             
+
+             <button
+              onClick={() => setIsSearchOpen(true)}
+              className="p-2 text-slate-600 hover:text-slate-900 transition-colors"
+             >
+                <Search className="w-5 h-5" />
+            </button>
+
              {/* Trigger Sidebar */}
-             <button 
-                onClick={() => setIsSidebarOpen(true)} 
+             <button
+                onClick={() => setIsSidebarOpen(true)}
                 className="p-2 hover:bg-slate-100 rounded-md transition-colors border border-slate-200"
              >
                 <Menu className="w-6 h-6 text-slate-900" />
@@ -125,9 +136,8 @@ export default function ContactPage() {
                     <ul className="space-y-4 text-xl font-medium text-slate-800">
                         <li><Link href="/" className="hover:text-blue-600 transition-colors">About</Link></li>
                         <li><Link href="/portfolio" className="hover:text-blue-600 transition-colors">Portfolio</Link></li>
-                        <li><a href="#" className="hover:text-blue-600 transition-colors">Team</a></li>
-                        <li><a href="#" className="hover:text-blue-600 transition-colors">Jobs</a></li>
-                        <li><a href="#" className="hover:text-blue-600 transition-colors">Connect</a></li>
+                        <li><Link href="/jobs" className="hover:text-blue-600 transition-colors">Jobs</Link></li>
+                        <li><Link href="/connect" className="hover:text-blue-600 transition-colors">Connect</Link></li>
                     </ul>
                 </div>
             </div>
@@ -139,9 +149,6 @@ export default function ContactPage() {
                         <Twitter className="w-5 h-5" />
                     </a>
                     <a href="#" className="bg-blue-400 hover:bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-sm transition-colors"><Linkedin className="w-5 h-5" /></a>
-                    <a href="#" className="bg-blue-400 hover:bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-sm transition-colors"><Facebook className="w-5 h-5" /></a>
-                    <a href="#" className="bg-blue-400 hover:bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-sm transition-colors"><Instagram className="w-5 h-5" /></a>
-                    <a href="#" className="bg-blue-400 hover:bg-blue-600 text-white w-10 h-10 flex items-center justify-center rounded-sm transition-colors"><Youtube className="w-5 h-5" /></a>
                 </div>
             </div>
         </div>
@@ -297,5 +304,6 @@ export default function ContactPage() {
         </div>
       </footer>
     </main>
+    </>
   );
 }
