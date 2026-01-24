@@ -6,7 +6,10 @@ import DynamicTitle from "@/components/DynamicTitle";
 export const metadata: Metadata = {
   title: "Initial Ventures",
   description: "Initial Ventures is an innovative-focused fund.",
-  icons: { icon: "/logo.png" },
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

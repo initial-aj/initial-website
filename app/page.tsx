@@ -115,8 +115,8 @@ export default function LandingPage() {
           <div className="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600 font-sans">
             <Link href="/" className="text-slate-900 font-bold transition-colors">About</Link>
             <Link href="/portfolio" className="hover:text-slate-900 transition-colors">Portfolio</Link>
-            <Link href="#" className="hover:text-slate-900 transition-colors">Insights</Link>
-            <Link href="#" className="hover:text-slate-900 transition-colors">Careers</Link>
+            <Link href="/jobs" className="hover:text-slate-900 transition-colors">Jobs</Link>
+            <Link href="/connect" className="hover:text-slate-900 transition-colors">Connect</Link>
           </div>
 
           {/* Right Actions */}
@@ -144,8 +144,8 @@ export default function LandingPage() {
             <div className="absolute top-full left-0 w-full bg-white border-t border-gray-100 shadow-lg p-6 flex flex-col gap-4 md:hidden font-sans">
                 <Link href="/" className="text-lg font-medium">About</Link>
                 <Link href="/portfolio" className="text-lg font-medium">Portfolio</Link>
-                <a href="#" className="text-lg font-medium">Insights</a>
-                <a href="#" className="text-lg font-medium">Careers</a>
+                <Link href="/jobs" className="text-lg font-medium">Jobs</Link>
+                <Link href="/connect" className="text-lg font-medium">Connect</Link>
             </div>
         )}
       </nav>
@@ -266,6 +266,9 @@ export default function LandingPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
                 <div className="space-y-6">
+                    <p className="text-xs text-[#8e8e90] max-w-2xl mb-6 leading-relaxed">
+                        Any investments or portfolio companies mentioned, referred to, or described on this page are not representative of all investments in vehicles managed by Initial Ventures...
+                    </p>
                     <h3 className="text-2xl font-bold font-bold text-white tracking-wider uppercase">
                         INITIAL VENTURES
                     </h3>
@@ -288,8 +291,8 @@ export default function LandingPage() {
                     </div>
 
                     <div className="mt-8 md:mt-0 md:text-right flex flex-col items-end">
-                        <Link 
-                            href="/contact" 
+                        <Link
+                            href="/connect"
                             className="px-8 py-3 bg-white text-[#1C2B4B] text-sm font-bold rounded-sm hover:bg-gray-100 transition-colors font-sans uppercase tracking-wider"
                         >
                             Connect Us

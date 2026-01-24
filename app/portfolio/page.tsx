@@ -335,8 +335,8 @@ export default function Portfolio() {
           <div className="hidden md:flex items-center gap-8 font-medium text-sm text-slate-600 font-sans">
             <Link href="/" className="hover:text-slate-900 transition-colors">About</Link>
             <Link href="/portfolio" className="text-slate-900 font-bold transition-colors">Portfolio</Link>
-            <Link href="#" className="hover:text-slate-900 transition-colors">Insights</Link>
-            <Link href="#" className="hover:text-slate-900 transition-colors">Careers</Link>
+            <Link href="/jobs" className="hover:text-slate-900 transition-colors">Jobs</Link>
+            <Link href="/connect" className="hover:text-slate-900 transition-colors">Connect</Link>
           </div>
 
           <div className="flex items-center gap-4">
@@ -552,7 +552,7 @@ export default function Portfolio() {
       {/* --- FOOTER SECTION --- */}
       <footer className="bg-[#4d4d4f] text-[#c2c2c2] text-sm py-12">
         <div className="max-w-7xl mx-auto px-6">
-            <div className="mb-12 text-xs leading-relaxed opacity-80 italic font-light font-serif">
+            <div className="mb-6 text-xs leading-relaxed opacity-80 italic font-light font-serif">
                 <p>
                     Any investments or portfolio companies mentioned, referred to, or described on this page are not representative of all investments in vehicles managed by Initial Ventures...
                 </p>
@@ -574,9 +574,6 @@ export default function Portfolio() {
                             <Twitter className="w-4 h-4" />
                         </a>
                         <a href="#" className="bg-[#6b6b6d] hover:bg-white hover:text-black text-white w-8 h-8 flex items-center justify-center rounded-sm transition-colors"><Linkedin className="w-4 h-4" /></a>
-                        <a href="#" className="bg-[#6b6b6d] hover:bg-white hover:text-black text-white w-8 h-8 flex items-center justify-center rounded-sm transition-colors"><Facebook className="w-4 h-4" /></a>
-                        <a href="#" className="bg-[#6b6b6d] hover:bg-white hover:text-black text-white w-8 h-8 flex items-center justify-center rounded-sm transition-colors"><Instagram className="w-4 h-4" /></a>
-                        <a href="#" className="bg-[#6b6b6d] hover:bg-white hover:text-black text-white w-8 h-8 flex items-center justify-center rounded-sm transition-colors"><Youtube className="w-4 h-4" /></a>
                     </div>
 
                     <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-xs font-bold tracking-widest uppercase">
