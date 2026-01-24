@@ -259,7 +259,7 @@ export default function JobsPage() {
 
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-5xl font-bold tracking-tight text-slate-900 mb-4">
+          <h1 className="text-5xl md:text-6xl font-serif font-medium text-[#1C2B4B]">
             Career Opportunities
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl">
