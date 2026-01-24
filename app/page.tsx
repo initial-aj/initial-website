@@ -149,7 +149,6 @@ export default function LandingPage() {
                 <Link href="/" className="text-lg font-medium">About</Link>
                 <Link href="/portfolio" className="text-lg font-medium">Portfolio</Link>
                 <a href="#" className="text-lg font-medium">Insights</a>
-                <a href="#" className="text-lg font-medium">Policy</a>
                 <a href="#" className="text-lg font-medium">Careers</a>
             </div>
         )}
@@ -171,19 +170,32 @@ export default function LandingPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24">
             {/* Fund 01 */}
             <div className="group">
-                <div className="flex items-baseline gap-4 mb-6">
-                    <span className="text-xl font-bold text-blue-500">//</span>
-                    <h3 className="text-3xl md:text-4xl font-serif text-[#1C2B4B] group-hover:text-blue-700 transition-colors">
-                        Ultron Fund
-                    </h3>
-                </div>
+                {/* 1. Title is a clickable Link */}
+                <Link href="/ultron" className="block cursor-pointer">
+                    <div className="flex items-baseline gap-4 mb-6">
+                        <span className="text-xl font-bold text-blue-500">//</span>
+                        <h3 className="text-3xl md:text-4xl font-serif text-[#1C2B4B] group-hover:text-blue-700 transition-colors">
+                            Ultron Fund
+                        </h3>
+                    </div>
+                </Link>
                 <p className="text-lg leading-relaxed text-slate-600 font-light mb-8">
                     Ultron is a quantitative hedge fund that delivers strong absolute returns across market cycles through a proprietary automated strategy based on the machine learning of the market data analysis; 
                     Ultron investing predominantly in leveraged Bitcoin markets to generate consistent alpha over a proven track record.
                 </p>
-                <Link href="/connect" className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-orange-600 transition-colors flex items-center gap-2 font-sans">
-                    Request Information <ArrowRight className="w-4 h-4" />
-                </Link>
+                
+                {/* 2. Added Dual Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-6 mt-8">
+                    {/* Primary Action: Go to Dashboard */}
+                    <Link href="/ultron" className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-orange-600 transition-colors flex items-center gap-2 font-sans">
+                        View Performance <ArrowRight className="w-4 h-4" />
+                    </Link>
+
+                    {/* Secondary Action: Contact Form */}
+                    <Link href="/connect" className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-orange-600 transition-colors flex items-center gap-2 font-sans">
+                        Request Information <ArrowRight className="w-4 h-4" />
+                    </Link>
+                </div>
             </div>
 
             {/* Fund 02 */}

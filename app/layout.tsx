@@ -9,7 +9,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfa
 
 export const metadata: Metadata = {
   title: "Initial Ventures",
-  description: "Initial Ventures is a quantitative hedge fund.",
+  description: "Initial Ventures is an innovative-focused fund.",
   icons: { icon: "/logo.png" },
 };
 
