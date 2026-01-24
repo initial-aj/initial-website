@@ -89,7 +89,7 @@ export async function GET() {
     // Calculate Max Drawdown
     let peak = -Infinity;
     let maxDrawdown = 0;
-    chartData.forEach(d => {
+    chartData.forEach((d: { date: string; ultronNav: number; btcNav: number }) => {
       if (d.ultronNav > peak) peak = d.ultronNav;
       const dd = (peak - d.ultronNav) / peak;
       if (dd > maxDrawdown) maxDrawdown = dd;
