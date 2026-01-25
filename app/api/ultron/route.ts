@@ -131,7 +131,7 @@ export async function GET() {
     });
 
     // Filter to only show data from when Ultron started trading
-    const chartData = fullChartData.filter(d => d.timestamp >= firstTradeTime);
+    const chartData = fullChartData.filter((d: any) => d.timestamp >= firstTradeTime);
 
     console.log('[Ultron API] Chart data points:', chartData.length);
     console.log('[Ultron API] First chart point - Ultron NAV:', chartData[0]?.ultronNav, 'BTC NAV:', chartData[0]?.btcNav);
