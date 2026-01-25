@@ -286,7 +286,7 @@ export default function InsightsPage() {
             <div className="flex items-center gap-4 mb-4">
                 <div className="h-8 w-1 bg-blue-500"></div>
                 <h1 className="text-5xl md:text-6xl font-serif font-medium text-[#1C2B4B]">
-                  Research & Insights
+                   Insights
                 </h1>
             </div>
             <p className="text-xl text-slate-600 max-w-3xl">
