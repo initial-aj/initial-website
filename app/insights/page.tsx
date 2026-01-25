@@ -375,7 +375,6 @@ export default function InsightsPage() {
                     <p className="text-xl text-slate-600">No research papers found in this category.</p>
                   </div>
                 )}
-              </div>
             </div>
 
             {/* RIGHT COLUMN - Live News Feed (40%) */}
@@ -434,6 +433,7 @@ export default function InsightsPage() {
             </div>
 
           </div>
+        </div>
 
         {/* Footer */}
         <footer className="bg-[#1C2B4B] text-[#c2c2c2] text-sm py-16 font-sans mt-20">
