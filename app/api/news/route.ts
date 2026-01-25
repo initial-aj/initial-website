@@ -44,7 +44,23 @@ async function fetchNewsDataArticles(query: string, limit: number = 10) {
 
   try {
     const apiKey = 'pub_f5022e23ece64ef9848721e115342e26';
-    const url = `https://newsdata.io/api/1/latest?apikey=${apiKey}&q=${encodeURIComponent(query)}&language=en&category=technology`;
+
+    // Simplify complex OR queries to avoid 422 error
+    // NewsData.io free tier doesn't support complex boolean queries
+    let searchQuery = query;
+    if (query.includes(' OR ')) {
+      // Extract first company name from "Company1 OR Company2 OR Company3"
+      searchQuery = query.split(' OR ')[0].trim();
+      console.log('[NewsData] Simplified complex query to:', searchQuery);
+    }
+
+    // Limit query length to avoid 422 error
+    if (searchQuery.length > 50) {
+      searchQuery = 'crypto blockchain';
+      console.log('[NewsData] Query too long, using fallback:', searchQuery);
+    }
+
+    const url = `https://newsdata.io/api/1/latest?apikey=${apiKey}&q=${encodeURIComponent(searchQuery)}&language=en&category=technology`;
 
     const response = await fetch(url, {
       method: 'GET',
@@ -54,11 +70,18 @@ async function fetchNewsDataArticles(query: string, limit: number = 10) {
     });
 
     if (!response.ok) {
-      console.error('NewsData API error:', response.status);
+      const errorText = await response.text();
+      console.error('NewsData API error:', response.status, errorText);
       return [];
     }
 
     const data = await response.json();
+
+    // Check for API error response
+    if (data.status === 'error') {
+      console.error('NewsData API error:', data.results?.message || 'Unknown error');
+      return [];
+    }
     rateLimits.newsdata.requestCount++;
     rateLimits.newsdata.lastRequest = Date.now();
 

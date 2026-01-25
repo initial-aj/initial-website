@@ -44,14 +44,15 @@ async function fetchOkx(path: string) {
 // --- Main Logic ---
 export async function GET() {
   try {
+    // TEMPORARY: Cache disabled for debugging
     // Check cache first (hourly refresh)
     const now = Date.now();
-    if (cachedData && (now - lastFetchTime) < CACHE_DURATION) {
-      console.log('[Ultron API] Serving from cache');
-      return NextResponse.json(cachedData);
-    }
+    // if (cachedData && (now - lastFetchTime) < CACHE_DURATION) {
+    //   console.log('[Ultron API] Serving from cache');
+    //   return NextResponse.json(cachedData);
+    // }
 
-    console.log('[Ultron API] Fetching fresh data from OKX...');
+    console.log('[Ultron API] Fetching fresh data from OKX... (cache disabled for debugging)');
 
     // 1. Fetch History concurrently for speed (increased limits for more data)
     const [positions, events, btcHistory] = await Promise.all([
