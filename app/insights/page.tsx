@@ -139,6 +139,8 @@ export default function InsightsPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [news, setNews] = useState<any[]>([]);
+  const [isLoadingNews, setIsLoadingNews] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -146,6 +148,27 @@ export default function InsightsPage() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Fetch live news
+  useEffect(() => {
+    const fetchNews = async () => {
+      setIsLoadingNews(true);
+      try {
+        const response = await fetch('/api/news?company=crypto blockchain web3 defi bitcoin ethereum solana&currency=BTC,ETH,SOL&limit=20');
+        const data = await response.json();
+
+        if (data.success && data.articles.length > 0) {
+          setNews(data.articles);
+        }
+      } catch (error) {
+        console.error('Error fetching news:', error);
+      } finally {
+        setIsLoadingNews(false);
+      }
+    };
+
+    fetchNews();
   }, []);
 
   const categories = ['All', 'AI & Infrastructure', 'Bitcoin & Layer 2', 'DeFi & Security', 'DeFi & Staking', 'Infrastructure', 'RWA & Tokenization', 'Infrastructure & Privacy', 'DeFi & Trading', 'Infrastructure & UX'];
@@ -260,35 +283,45 @@ export default function InsightsPage() {
 
           {/* Header */}
           <div className="mb-12">
-            <h1 className="text-5xl md:text-6xl font-serif font-medium text-[#1C2B4B]">
-              Research & Insights
-            </h1>
+            <div className="flex items-center gap-4 mb-4">
+                <div className="h-8 w-1 bg-blue-500"></div>
+                <h1 className="text-5xl md:text-6xl font-serif font-medium text-[#1C2B4B]">
+                  Research & Insights
+                </h1>
+            </div>
             <p className="text-xl text-slate-600 max-w-3xl">
               Curated research from leading crypto firms. Stay informed on the latest trends, technologies, and market analysis in Web3.
             </p>
           </div>
 
-          {/* Category Filter */}
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-3">
-              {categories.map(category => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-lg font-semibold text-sm transition-colors ${
-                    selectedCategory === category
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white text-slate-600 border border-slate-300 hover:border-blue-600 hover:text-blue-600'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
+          {/* Two Column Layout: Research & News */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-          {/* Research Papers Grid */}
-          <div className="space-y-6">
+            {/* LEFT COLUMN - Research Articles (60%) */}
+            <div className="lg:col-span-7">
+              <h2 className="text-2xl font-bold text-slate-900 mb-6">Research Articles</h2>
+
+              {/* Category Filter */}
+              <div className="mb-6">
+                <div className="flex flex-wrap gap-2">
+                  {categories.map(category => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={`px-3 py-1.5 rounded-lg font-semibold text-xs transition-colors ${
+                        selectedCategory === category
+                          ? 'bg-blue-600 text-white'
+                          : 'bg-white text-slate-600 border border-slate-300 hover:border-blue-600 hover:text-blue-600'
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Research Papers */}
+              <div className="space-y-6">
             {filteredPapers.map(paper => (
               <div key={paper.id} className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-6 border border-slate-200 group">
                 <div className="flex flex-col gap-4">
@@ -337,11 +370,69 @@ export default function InsightsPage() {
             ))}
           </div>
 
-          {filteredPapers.length === 0 && (
-            <div className="text-center py-20 bg-white rounded-xl border border-slate-200">
-              <p className="text-xl text-slate-600">No research papers found in this category.</p>
+                {filteredPapers.length === 0 && (
+                  <div className="text-center py-20 bg-white rounded-xl border border-slate-200">
+                    <p className="text-xl text-slate-600">No research papers found in this category.</p>
+                  </div>
+                )}
             </div>
-          )}
+
+            {/* RIGHT COLUMN - Live News Feed (40%) */}
+            <div className="lg:col-span-5">
+              <div className="sticky top-28">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-2xl font-bold text-slate-900">Latest News</h2>
+                  {isLoadingNews && (
+                    <div className="text-sm text-slate-500 animate-pulse">Loading...</div>
+                  )}
+                </div>
+
+                <div className="space-y-4 max-h-[800px] overflow-y-auto pr-2">
+                  {news.slice(0, 15).map((article, index) => (
+                    <a
+                      key={article.id || index}
+                      href={article.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-200 p-4 border border-slate-200 hover:border-blue-300 group"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="flex-shrink-0 w-2 h-2 bg-blue-600 rounded-full mt-2"></div>
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-sm font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-2 mb-2">
+                            {article.title}
+                          </h3>
+                          <div className="flex items-center gap-2 text-xs text-slate-500">
+                            <span className="font-medium">{article.source}</span>
+                            <span>•</span>
+                            <span>{new Date(article.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
+                          </div>
+                        </div>
+                        <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-blue-600 flex-shrink-0 mt-1" />
+                      </div>
+                    </a>
+                  ))}
+
+                  {!isLoadingNews && news.length === 0 && (
+                    <div className="text-center py-10 bg-white rounded-lg border border-slate-200">
+                      <p className="text-sm text-slate-600">No news available at the moment.</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="mt-4 text-center">
+                  <Link
+                    href="/news"
+                    className="text-sm text-blue-600 hover:text-blue-700 font-semibold inline-flex items-center gap-1"
+                  >
+                    View All News
+                    <ExternalLink className="w-3 h-3" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
 
         {/* Footer */}
