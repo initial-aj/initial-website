@@ -57,9 +57,6 @@ export default function UltronPage() {
     <main className="min-h-screen bg-[#0A0A0A] text-white font-sans">
       <div className="max-w-7xl mx-auto px-6 py-20">
         <h1 className="text-5xl font-serif mb-6">Ultron Fund</h1>
-        <p className="text-xl text-gray-400 max-w-2xl mb-12">
-          An automated quantitative strategy leveraging volatility indexing and machine learning to outperform BTC.
-        </p>
 
         {/* Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-20">
