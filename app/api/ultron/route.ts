@@ -3,10 +3,15 @@ import CryptoJS from 'crypto-js';
 
 // --- Configuration ---
 const BASE_URL = "https://www.okx.com";
-const API_KEY = process.env.OKX_API_KEY!;
-const API_SECRET = process.env.OKX_API_SECRET!;
-const PASSPHRASE = process.env.OKX_PASSPHRASE!;
-const ALGO_ID = process.env.OKX_ALGO_ID!;
+const API_KEY = process.env.ULTRON_API_KEY!;
+const API_SECRET = process.env.ULTRON_API_SECRET!;
+const PASSPHRASE = process.env.ULTRON_PASSPHRASE!;
+const ALGO_ID = process.env.ULTRON_ALGO_ID!;
+
+// Cache for hourly updates
+let cachedData: any = null;
+let lastFetchTime = 0;
+const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in milliseconds
 
 // --- Helper: OKX Signature ---
 function generateSignature(timestamp: string, method: string, requestPath: string, body: string = "") {
@@ -39,54 +44,122 @@ async function fetchOkx(path: string) {
 // --- Main Logic ---
 export async function GET() {
   try {
-    // 1. Fetch History concurrently for speed
+    // Check cache first (hourly refresh)
+    const now = Date.now();
+    if (cachedData && (now - lastFetchTime) < CACHE_DURATION) {
+      console.log('[Ultron API] Serving from cache');
+      return NextResponse.json(cachedData);
+    }
+
+    console.log('[Ultron API] Fetching fresh data from OKX...');
+
+    // 1. Fetch History concurrently for speed (increased limits for more data)
     const [positions, events, btcHistory] = await Promise.all([
-      fetchOkx(`/api/v5/tradingBot/signal/positions-history?algoId=${ALGO_ID}&limit=100`),
-      fetchOkx(`/api/v5/tradingBot/signal/event-history?algoId=${ALGO_ID}&limit=100`),
-      fetchOkx(`/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&limit=300`), // Daily candles for simplicity
+      fetchOkx(`/api/v5/tradingBot/signal/positions-history?algoId=${ALGO_ID}&limit=500`),
+      fetchOkx(`/api/v5/tradingBot/signal/event-history?algoId=${ALGO_ID}&limit=500`),
+      fetchOkx(`/api/v5/market/history-candles?instId=BTC-USDT-SWAP&bar=1D&limit=500`),
     ]);
 
-    // 2. Process Data for Charts
-    // Note: In a production app, we would implement the full Python equity loop here.
-    // For this V1, we will approximate the curve based on the "positions" PnL history 
-    // combined with BTC price action for the comparison chart.
+    // DEBUG: Log raw data
+    console.log('[Ultron API] Total positions fetched:', positions?.length || 0);
+    console.log('[Ultron API] Total events fetched:', events?.length || 0);
+    console.log('[Ultron API] Sample position data:', positions?.[0]);
+    console.log('[Ultron API] Sample event data:', events?.[0]);
 
+    // 2. Process Data for Charts
     // Format BTC Data (Comparison Baseline)
     const btcData = btcHistory.reverse().map((candle: any) => ({
+      timestamp: parseInt(candle[0]),
       date: new Date(parseInt(candle[0])).toISOString().split('T')[0],
-      price: parseFloat(candle[4]),
+      price: parseFloat(candle[4]), // Close price
     }));
 
-    const initialBtcPrice = btcData[0].price;
+    // Sort positions by close time (uTime)
+    // All positions returned by positions-history are closed positions
+    const sortedPositions = positions
+      .filter((p: any) => p.uTime && p.pnlRatio) // Has close time and PnL
+      .sort((a: any, b: any) => parseInt(a.uTime) - parseInt(b.uTime));
 
-    // Simulate Equity Curve (Simplified for Speed)
-    // We start at 1.0 NAV. We apply PnL from position history to this NAV.
+    console.log('[Ultron API] Closed positions with uTime:', sortedPositions.length);
+    console.log('[Ultron API] Sample closed position:', sortedPositions[0]);
+
+    // Find the earliest trade to determine when Ultron started
+    const firstTradeTime = sortedPositions.length > 0 ? parseInt(sortedPositions[0].cTime) : btcData[0].timestamp;
+    console.log('[Ultron API] First trade timestamp:', firstTradeTime, 'Date:', new Date(firstTradeTime).toISOString());
+
+    // Find BTC price at the time Ultron started trading
+    let startBtcPrice = btcData[0].price;
+    for (let i = 0; i < btcData.length; i++) {
+      if (btcData[i].timestamp >= firstTradeTime) {
+        startBtcPrice = btcData[i].price;
+        break;
+      }
+    }
+    console.log('[Ultron API] Starting BTC price:', startBtcPrice);
+
+    // Use positions data (they have pnlRatio which is what we need)
+    const tradeData = sortedPositions;
+
+    console.log('[Ultron API] Using trade data from: positions');
+    console.log('[Ultron API] Total trade data points:', tradeData.length);
+
     let currentNav = 1.0;
-    const chartData = btcData.map((day: any) => {
-      // Find if we had a closed position on this day
-      // (This is a simplified logic of your Python script for the frontend display)
-      const daysEvents = positions.filter((p: any) => 
-        new Date(parseInt(p.cTime)).toISOString().split('T')[0] === day.date
-      );
+    let tradeIndex = 0;
 
-      daysEvents.forEach((p: any) => {
-        const pnl = parseFloat(p.pnlRatio || "0"); // ROI of that trade
-        currentNav = currentNav * (1 + pnl); 
-      });
+    // Build full equity curve
+    const fullChartData = btcData.map((day: any) => {
+      // Apply all trade PnLs that closed on or before this day
+      while (
+        tradeIndex < tradeData.length &&
+        parseInt(tradeData[tradeIndex].uTime) <= day.timestamp
+      ) {
+        const trade = tradeData[tradeIndex];
+        const pnl = parseFloat(trade.pnlRatio);
+        if (tradeIndex < 5) { // Only log first 5 trades to avoid spam
+          console.log(`[Ultron API] Trade ${tradeIndex}: PnL = ${pnl} (${(pnl * 100).toFixed(2)}%), Date = ${new Date(parseInt(trade.uTime)).toISOString()}`);
+        }
+        currentNav = currentNav * (1 + pnl);
+        tradeIndex++;
+      }
 
       return {
         date: day.date,
         ultronNav: currentNav,
-        btcNav: day.price / initialBtcPrice, // Normalize BTC to start at 1.0
+        btcNav: day.price / startBtcPrice, // Normalize BTC to start at 1.0 when Ultron started
+        timestamp: day.timestamp,
       };
     });
 
-    // 3. Calculate Metrics (CAGR, Sharpe, etc.)
+    // Filter to only show data from when Ultron started trading
+    const chartData = fullChartData.filter((d: any) => d.timestamp >= firstTradeTime);
+
+    // Validate we have data
+    if (chartData.length === 0) {
+      throw new Error('No chart data available after filtering');
+    }
+
+    console.log('[Ultron API] Chart data points:', chartData.length);
+    console.log('[Ultron API] First chart point - Ultron NAV:', chartData[0]?.ultronNav, 'BTC NAV:', chartData[0]?.btcNav);
+    console.log('[Ultron API] Final NAV:', currentNav);
+
+    // 3. Calculate Metrics
     const totalDays = chartData.length;
     const finalNav = chartData[chartData.length - 1].ultronNav;
+
+    // Validate finalNav
+    if (!finalNav || finalNav <= 0 || !isFinite(finalNav)) {
+      throw new Error(`Invalid final NAV: ${finalNav}`);
+    }
+
+    // CAGR calculation
     const cagr = Math.pow(finalNav, 365 / totalDays) - 1;
 
-    // Calculate Max Drawdown
+    // Validate CAGR
+    if (!isFinite(cagr)) {
+      throw new Error(`Invalid CAGR calculation: finalNav=${finalNav}, totalDays=${totalDays}`);
+    }
+
+    // Calculate Max Drawdown for Ultron
     let peak = -Infinity;
     let maxDrawdown = 0;
     chartData.forEach((d: { date: string; ultronNav: number; btcNav: number }) => {
@@ -95,23 +168,61 @@ export async function GET() {
       if (dd > maxDrawdown) maxDrawdown = dd;
     });
 
-    // Calculate Sharpe (Simplified)
-    // In real app, calculate daily returns array standard deviation
-    const sharpe = (cagr - 0.04) / (maxDrawdown * 0.5); // Approximation for V1 display
+    // Calculate daily returns for Sharpe Ratio
+    const dailyReturns: number[] = [];
+    for (let i = 1; i < chartData.length; i++) {
+      const dailyReturn = (chartData[i].ultronNav - chartData[i - 1].ultronNav) / chartData[i - 1].ultronNav;
+      dailyReturns.push(dailyReturn);
+    }
 
-    return NextResponse.json({
+    // Calculate Sharpe Ratio (annualized)
+    const avgDailyReturn = dailyReturns.length > 0
+      ? dailyReturns.reduce((sum, r) => sum + r, 0) / dailyReturns.length
+      : 0;
+    const variance = dailyReturns.length > 0
+      ? dailyReturns.reduce((sum, r) => sum + Math.pow(r - avgDailyReturn, 2), 0) / dailyReturns.length
+      : 0;
+    const stdDev = Math.sqrt(variance);
+    const annualizedReturn = avgDailyReturn * 365;
+    const annualizedVolatility = stdDev * Math.sqrt(365);
+    const riskFreeRate = 0.04; // 4% risk-free rate
+    const sharpe = annualizedVolatility > 0 ? (annualizedReturn - riskFreeRate) / annualizedVolatility : 0;
+
+    console.log('[Ultron API] Sharpe calculation - avgReturn:', avgDailyReturn, 'volatility:', annualizedVolatility, 'sharpe:', sharpe);
+
+    // Calculate Calmar Ratio
+    const calmar = maxDrawdown > 0 ? cagr / maxDrawdown : 0;
+
+    // Calculate win rate from trade data
+    const winningTrades = tradeData.filter((t: any) => parseFloat(t.pnlRatio) > 0).length;
+    const totalTrades = tradeData.length;
+    const winRate = totalTrades > 0 ? (winningTrades / totalTrades) * 100 : 0;
+
+    console.log(`[Ultron API] Win Rate: ${winningTrades}/${totalTrades} = ${winRate.toFixed(2)}%`);
+
+    const result = {
       chartData,
       metrics: {
-        cagr: (cagr * 100).toFixed(1) + "%",
-        maxDrawdown: "-" + (maxDrawdown * 100).toFixed(1) + "%",
-        sharpe: sharpe.toFixed(2),
-        calmar: (cagr / maxDrawdown).toFixed(2),
+        cagr: isFinite(cagr) ? (cagr * 100).toFixed(1) + "%" : "0.0%",
+        maxDrawdown: isFinite(maxDrawdown) ? "-" + (maxDrawdown * 100).toFixed(1) + "%" : "0.0%",
+        sharpe: isFinite(sharpe) ? sharpe.toFixed(2) : "0.00",
+        calmar: isFinite(calmar) ? calmar.toFixed(2) : "0.00",
         runningDays: totalDays,
-        winRate: "84.00%" // Hardcoded from your screenshot for now, or calculate from positions
+        winRate: isFinite(winRate) ? winRate.toFixed(2) + "%" : "0.00%",
+        totalTrades: totalTrades,
       }
-    });
+    };
+
+    console.log('[Ultron API] Final metrics:', result.metrics);
+
+    // Update cache
+    cachedData = result;
+    lastFetchTime = now;
+
+    return NextResponse.json(result);
 
   } catch (error: any) {
+    console.error('[Ultron API Error]', error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
