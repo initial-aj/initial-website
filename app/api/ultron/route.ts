@@ -77,21 +77,19 @@ export async function GET() {
 
     const initialBtcPrice = btcData[0].price;
 
-    // Sort positions by close time
+    // Sort positions by close time (uTime)
+    // All positions returned by positions-history are closed positions
     const sortedPositions = positions
-      .filter((p: any) => p.state === '2') // Only closed positions
+      .filter((p: any) => p.uTime && p.pnlRatio) // Has close time and PnL
       .sort((a: any, b: any) => parseInt(a.uTime) - parseInt(b.uTime));
 
-    console.log('[Ultron API] Closed positions (state=2):', sortedPositions.length);
+    console.log('[Ultron API] Closed positions with uTime:', sortedPositions.length);
     console.log('[Ultron API] Sample closed position:', sortedPositions[0]);
 
-    // Build equity curve based on closed positions OR events
-    // Try using events if positions don't have pnlRatio
-    const tradeData = sortedPositions.length > 0 && sortedPositions[0].pnlRatio !== undefined
-      ? sortedPositions
-      : events.filter((e: any) => e.pnl || e.profit).sort((a: any, b: any) => parseInt(a.ts || a.cTime) - parseInt(b.ts || b.cTime));
+    // Use positions data (they have pnlRatio which is what we need)
+    const tradeData = sortedPositions;
 
-    console.log('[Ultron API] Using trade data from:', sortedPositions.length > 0 ? 'positions' : 'events');
+    console.log('[Ultron API] Using trade data from: positions');
     console.log('[Ultron API] Total trade data points:', tradeData.length);
 
     let currentNav = 1.0;
@@ -101,11 +99,13 @@ export async function GET() {
       // Apply all trade PnLs that closed on or before this day
       while (
         tradeIndex < tradeData.length &&
-        parseInt(tradeData[tradeIndex].uTime || tradeData[tradeIndex].ts || tradeData[tradeIndex].cTime) <= day.timestamp
+        parseInt(tradeData[tradeIndex].uTime) <= day.timestamp
       ) {
         const trade = tradeData[tradeIndex];
-        const pnl = parseFloat(trade.pnlRatio || trade.pnl || trade.profit || "0");
-        console.log(`[Ultron API] Trade ${tradeIndex}: PnL = ${pnl}, Date = ${new Date(parseInt(trade.uTime || trade.ts || trade.cTime)).toISOString()}`);
+        const pnl = parseFloat(trade.pnlRatio);
+        if (tradeIndex < 5) { // Only log first 5 trades to avoid spam
+          console.log(`[Ultron API] Trade ${tradeIndex}: PnL = ${pnl} (${(pnl * 100).toFixed(2)}%), Date = ${new Date(parseInt(trade.uTime)).toISOString()}`);
+        }
         currentNav = currentNav * (1 + pnl);
         tradeIndex++;
       }
@@ -155,9 +155,11 @@ export async function GET() {
     const calmar = maxDrawdown > 0 ? cagr / maxDrawdown : 0;
 
     // Calculate win rate from trade data
-    const winningTrades = tradeData.filter((t: any) => parseFloat(t.pnlRatio || t.pnl || t.profit || "0") > 0).length;
+    const winningTrades = tradeData.filter((t: any) => parseFloat(t.pnlRatio) > 0).length;
     const totalTrades = tradeData.length;
     const winRate = totalTrades > 0 ? (winningTrades / totalTrades) * 100 : 0;
+
+    console.log(`[Ultron API] Win Rate: ${winningTrades}/${totalTrades} = ${winRate.toFixed(2)}%`);
 
     const result = {
       chartData,
