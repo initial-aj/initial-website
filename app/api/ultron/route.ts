@@ -133,6 +133,11 @@ export async function GET() {
     // Filter to only show data from when Ultron started trading
     const chartData = fullChartData.filter((d: any) => d.timestamp >= firstTradeTime);
 
+    // Validate we have data
+    if (chartData.length === 0) {
+      throw new Error('No chart data available after filtering');
+    }
+
     console.log('[Ultron API] Chart data points:', chartData.length);
     console.log('[Ultron API] First chart point - Ultron NAV:', chartData[0]?.ultronNav, 'BTC NAV:', chartData[0]?.btcNav);
     console.log('[Ultron API] Final NAV:', currentNav);
@@ -141,8 +146,18 @@ export async function GET() {
     const totalDays = chartData.length;
     const finalNav = chartData[chartData.length - 1].ultronNav;
 
+    // Validate finalNav
+    if (!finalNav || finalNav <= 0 || !isFinite(finalNav)) {
+      throw new Error(`Invalid final NAV: ${finalNav}`);
+    }
+
     // CAGR calculation
     const cagr = Math.pow(finalNav, 365 / totalDays) - 1;
+
+    // Validate CAGR
+    if (!isFinite(cagr)) {
+      throw new Error(`Invalid CAGR calculation: finalNav=${finalNav}, totalDays=${totalDays}`);
+    }
 
     // Calculate Max Drawdown for Ultron
     let peak = -Infinity;
@@ -161,13 +176,19 @@ export async function GET() {
     }
 
     // Calculate Sharpe Ratio (annualized)
-    const avgDailyReturn = dailyReturns.reduce((sum, r) => sum + r, 0) / dailyReturns.length;
-    const variance = dailyReturns.reduce((sum, r) => sum + Math.pow(r - avgDailyReturn, 2), 0) / dailyReturns.length;
+    const avgDailyReturn = dailyReturns.length > 0
+      ? dailyReturns.reduce((sum, r) => sum + r, 0) / dailyReturns.length
+      : 0;
+    const variance = dailyReturns.length > 0
+      ? dailyReturns.reduce((sum, r) => sum + Math.pow(r - avgDailyReturn, 2), 0) / dailyReturns.length
+      : 0;
     const stdDev = Math.sqrt(variance);
     const annualizedReturn = avgDailyReturn * 365;
     const annualizedVolatility = stdDev * Math.sqrt(365);
     const riskFreeRate = 0.04; // 4% risk-free rate
-    const sharpe = (annualizedReturn - riskFreeRate) / annualizedVolatility;
+    const sharpe = annualizedVolatility > 0 ? (annualizedReturn - riskFreeRate) / annualizedVolatility : 0;
+
+    console.log('[Ultron API] Sharpe calculation - avgReturn:', avgDailyReturn, 'volatility:', annualizedVolatility, 'sharpe:', sharpe);
 
     // Calculate Calmar Ratio
     const calmar = maxDrawdown > 0 ? cagr / maxDrawdown : 0;
@@ -182,15 +203,17 @@ export async function GET() {
     const result = {
       chartData,
       metrics: {
-        cagr: (cagr * 100).toFixed(1) + "%",
-        maxDrawdown: "-" + (maxDrawdown * 100).toFixed(1) + "%",
-        sharpe: sharpe.toFixed(2),
-        calmar: calmar.toFixed(2),
+        cagr: isFinite(cagr) ? (cagr * 100).toFixed(1) + "%" : "0.0%",
+        maxDrawdown: isFinite(maxDrawdown) ? "-" + (maxDrawdown * 100).toFixed(1) + "%" : "0.0%",
+        sharpe: isFinite(sharpe) ? sharpe.toFixed(2) : "0.00",
+        calmar: isFinite(calmar) ? calmar.toFixed(2) : "0.00",
         runningDays: totalDays,
-        winRate: winRate.toFixed(2) + "%",
+        winRate: isFinite(winRate) ? winRate.toFixed(2) + "%" : "0.00%",
         totalTrades: totalTrades,
       }
     };
+
+    console.log('[Ultron API] Final metrics:', result.metrics);
 
     // Update cache
     cachedData = result;
