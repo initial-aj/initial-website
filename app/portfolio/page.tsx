@@ -417,9 +417,12 @@ export default function Portfolio() {
         
         {/* --- HEADER TITLE --- */}
         <div className="max-w-7xl mx-auto px-6 pt-12 pb-10">
-            <h1 className="text-5xl font-bold tracking-tight text-slate-900 mb-12">
-            Builders We've Supported
-            </h1>
+            <div className="flex items-center gap-4 mb-12">
+                <div className="h-8 w-1 bg-blue-500"></div>
+                <h1 className="text-5xl md:text-6xl font-serif font-medium text-[#1C2B4B]">
+                    Builders We've Supported
+                </h1>
+            </div>
 
             {/* --- INTERACTIVE FILTER BAR --- */}
             <div className="flex flex-col md:flex-row gap-4 border-t border-b border-gray-200 py-6 items-center justify-between z-20 relative" ref={dropdownRef}>

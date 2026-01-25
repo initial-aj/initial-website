@@ -164,7 +164,7 @@ export default function ContactPage() {
         
         {/* Page Title */}
         <div className="flex items-center gap-4 mb-16">
-            <div className="h-8 w-1 bg-blue-700"></div>
+            <div className="h-8 w-1 bg-blue-500"></div>
             <h1 className="text-5xl md:text-6xl font-serif font-medium text-[#1C2B4B]">
                 Connect
             </h1>
