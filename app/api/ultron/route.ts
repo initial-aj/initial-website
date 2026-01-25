@@ -44,15 +44,14 @@ async function fetchOkx(path: string) {
 // --- Main Logic ---
 export async function GET() {
   try {
-    // TEMPORARY: Cache disabled for debugging
     // Check cache first (hourly refresh)
     const now = Date.now();
-    // if (cachedData && (now - lastFetchTime) < CACHE_DURATION) {
-    //   console.log('[Ultron API] Serving from cache');
-    //   return NextResponse.json(cachedData);
-    // }
+    if (cachedData && (now - lastFetchTime) < CACHE_DURATION) {
+      console.log('[Ultron API] Serving from cache');
+      return NextResponse.json(cachedData);
+    }
 
-    console.log('[Ultron API] Fetching fresh data from OKX... (cache disabled for debugging)');
+    console.log('[Ultron API] Fetching fresh data from OKX...');
 
     // 1. Fetch History concurrently for speed (increased limits for more data)
     const [positions, events, btcHistory] = await Promise.all([
@@ -75,8 +74,6 @@ export async function GET() {
       price: parseFloat(candle[4]), // Close price
     }));
 
-    const initialBtcPrice = btcData[0].price;
-
     // Sort positions by close time (uTime)
     // All positions returned by positions-history are closed positions
     const sortedPositions = positions
@@ -85,6 +82,20 @@ export async function GET() {
 
     console.log('[Ultron API] Closed positions with uTime:', sortedPositions.length);
     console.log('[Ultron API] Sample closed position:', sortedPositions[0]);
+
+    // Find the earliest trade to determine when Ultron started
+    const firstTradeTime = sortedPositions.length > 0 ? parseInt(sortedPositions[0].cTime) : btcData[0].timestamp;
+    console.log('[Ultron API] First trade timestamp:', firstTradeTime, 'Date:', new Date(firstTradeTime).toISOString());
+
+    // Find BTC price at the time Ultron started trading
+    let startBtcPrice = btcData[0].price;
+    for (let i = 0; i < btcData.length; i++) {
+      if (btcData[i].timestamp >= firstTradeTime) {
+        startBtcPrice = btcData[i].price;
+        break;
+      }
+    }
+    console.log('[Ultron API] Starting BTC price:', startBtcPrice);
 
     // Use positions data (they have pnlRatio which is what we need)
     const tradeData = sortedPositions;
@@ -95,7 +106,8 @@ export async function GET() {
     let currentNav = 1.0;
     let tradeIndex = 0;
 
-    const chartData = btcData.map((day: any) => {
+    // Build full equity curve
+    const fullChartData = btcData.map((day: any) => {
       // Apply all trade PnLs that closed on or before this day
       while (
         tradeIndex < tradeData.length &&
@@ -113,10 +125,16 @@ export async function GET() {
       return {
         date: day.date,
         ultronNav: currentNav,
-        btcNav: day.price / initialBtcPrice, // Normalize BTC to start at 1.0
+        btcNav: day.price / startBtcPrice, // Normalize BTC to start at 1.0 when Ultron started
+        timestamp: day.timestamp,
       };
     });
 
+    // Filter to only show data from when Ultron started trading
+    const chartData = fullChartData.filter(d => d.timestamp >= firstTradeTime);
+
+    console.log('[Ultron API] Chart data points:', chartData.length);
+    console.log('[Ultron API] First chart point - Ultron NAV:', chartData[0]?.ultronNav, 'BTC NAV:', chartData[0]?.btcNav);
     console.log('[Ultron API] Final NAV:', currentNav);
 
     // 3. Calculate Metrics

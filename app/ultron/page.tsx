@@ -265,11 +265,19 @@ export default function UltronPage() {
                   <XAxis
                     dataKey="date"
                     stroke="#94a3b8"
-                    tickFormatter={(val: string) => val.slice(5)}
-                    minTickGap={30}
+                    tickFormatter={(val: string) => {
+                      const date = new Date(val);
+                      return `${date.getFullYear()}/${String(date.getMonth() + 1).padStart(2, '0')}`;
+                    }}
+                    minTickGap={50}
                     style={{ fontSize: '12px' }}
                   />
-                  <YAxis stroke="#94a3b8" domain={['auto', 'auto']} style={{ fontSize: '12px' }} />
+                  <YAxis
+                    stroke="#94a3b8"
+                    domain={[0.8, 'auto']}
+                    label={{ value: 'Normalized NAV', angle: -90, position: 'insideLeft', style: { fontSize: '12px', fill: '#64748b' } }}
+                    style={{ fontSize: '12px' }}
+                  />
                   <Tooltip
                     contentStyle={{ backgroundColor: '#fff', borderColor: '#e5e7eb', borderRadius: '8px' }}
                     labelStyle={{ color: '#1e293b', fontWeight: 600 }}
@@ -314,7 +322,7 @@ export default function UltronPage() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" vertical={false} />
                   <XAxis dataKey="date" hide />
-                  <YAxis stroke="#94a3b8" style={{ fontSize: '12px' }} />
+                  <YAxis stroke="#94a3b8" domain={[0.8, 'auto']} style={{ fontSize: '12px' }} />
                   <Tooltip
                     contentStyle={{ backgroundColor: '#fff', borderColor: '#e5e7eb', borderRadius: '8px' }}
                     labelStyle={{ color: '#1e293b', fontWeight: 600 }}
