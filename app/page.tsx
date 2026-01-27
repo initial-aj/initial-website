@@ -101,9 +101,19 @@ export default function LandingPage() {
       try {
         // Portfolio company names for news search
         const portfolioCompanies = [
-          'Backpack', 'RateX', 'Rate X', 'Raiku', 'Primus Labs', 'Solayer',
-          'Lombard', 'Perena', 'StackingDAO', 'ZEUS Network',
-          'Titan Exchange', 'OpenEden', 'Sidekick', 'BitFlow'
+          'Backpack Exchange', 'Backpack',
+          'RateX_Dex', 'RateX', 'Rate X',
+          'Raiku',
+          'Primus Labs',
+          'Solayer SVM', 'Solayer',
+          'Lombard Finance', 'Lombard',
+          'Perena',
+          'StackingDAO',
+          'ZEUS Network',
+          'Titan Exchange',
+          'OpenEden',
+          'Sidekick',
+          'BitFlow'
         ];
 
         // Create search query focusing on portfolio companies
