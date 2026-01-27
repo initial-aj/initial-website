@@ -40,7 +40,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-20",
     category: "AI & Infrastructure",
     summary: "An in-depth analysis of how AI agents are transforming the crypto ecosystem. The report explores autonomous trading systems, AI-powered DeFi strategies, decentralized AI compute markets, and the convergence of blockchain and AI infrastructure for next-generation financial applications.",
-    url: "https://a16zcrypto.com/",
+    url: "https://a16zcrypto.com/posts/article/state-of-crypto-2025-ai-agents-autonomous-finance",
   },
   {
     id: 2,
@@ -50,7 +50,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-18",
     category: "Bitcoin & DeFi",
     summary: "Comprehensive analysis of Bitcoin's expanding DeFi ecosystem, examining Lightning Network adoption, BitVM smart contracts, RGB protocol applications, and liquid staking solutions. This report analyzes the technical architecture and market opportunities in Bitcoin programmability.",
-    url: "https://panteracapital.com/blockchain-letter/",
+    url: "https://panteracapital.com/blockchain-letter/bitcoin-defi-ecosystem-beyond-ordinals-runes/",
   },
   {
     id: 3,
@@ -60,7 +60,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-15",
     category: "DeFi & Security",
     summary: "A detailed examination of emerging security threats in 2025, including advanced MEV attacks, cross-chain bridge vulnerabilities, and AI-assisted exploit detection. Includes comprehensive recommendations for protocol security auditing, formal verification, and runtime monitoring systems.",
-    url: "https://www.paradigm.xyz/",
+    url: "https://www.paradigm.xyz/2025/01/defi-security-zero-day-exploits-prevention",
   },
   {
     id: 4,
@@ -70,7 +70,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-12",
     category: "DeFi & Staking",
     summary: "Analyzes the competitive landscape of liquid staking protocols across Ethereum, Solana, and Bitcoin. Examines restaking innovations, validator economics, and how liquid staking tokens are becoming the foundational collateral for DeFi applications with massive capital efficiency improvements.",
-    url: "https://multicoin.capital/",
+    url: "https://multicoin.capital/2025/01/12/liquid-staking-wars-battle-for-100b-tvl/",
   },
   {
     id: 5,
@@ -80,7 +80,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-10",
     category: "Infrastructure",
     summary: "Technical deep-dive into Solana's Firedancer client performance, achieving sustained 1M+ TPS in production. Analyzes the impact on ecosystem growth, developer adoption, and new applications enabled by ultra-high throughput including on-chain orderbooks and high-frequency DeFi strategies.",
-    url: "https://solana.com/news",
+    url: "https://solana.com/news/firedancer-era-performance-benchmarks-ecosystem-growth",
   },
   {
     id: 6,
@@ -90,7 +90,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-08",
     category: "RWA & Tokenization",
     summary: "Comprehensive report on the explosive growth of tokenized treasuries, examining regulatory clarity, institutional adoption, and yield strategies. Covers BlackRock BUIDL, Franklin OnChain US Government Money Fund, and the infrastructure powering RWA adoption at scale.",
-    url: "https://www.galaxy.com/research/",
+    url: "https://www.galaxy.com/insights/research/tokenized-us-treasuries-50b-on-chain/",
   },
   {
     id: 7,
@@ -100,7 +100,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-05",
     category: "Infrastructure & Privacy",
     summary: "Analysis of ZK rollup performance improvements in 2025, including proof generation optimization, recursive SNARKs, and cross-rollup interoperability. Features case studies from zkSync, Starknet, Scroll, and emerging application-specific ZK chains.",
-    url: "https://a16zcrypto.com/",
+    url: "https://a16zcrypto.com/posts/article/zero-knowledge-rollups-production-performance-scale",
   },
   {
     id: 8,
@@ -110,7 +110,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2025-01-03",
     category: "DeFi & Trading",
     summary: "Examines the rapid growth of on-chain perpetual and options markets, analyzing how dYdX v4, Hyperliquid, and Aevo are competing with centralized exchanges. Discusses technical innovations in order matching, liquidation mechanisms, and cross-margining systems.",
-    url: "https://members.delphidigital.io/",
+    url: "https://members.delphidigital.io/reports/on-chain-derivatives-next-1-trillion-market",
   },
   {
     id: 9,
@@ -120,7 +120,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2024-12-28",
     category: "Infrastructure",
     summary: "Explores the competitive landscape of data availability layers and their impact on rollup economics. Analyzes pricing models, throughput capabilities, and the strategic positioning of Celestia, EigenDA, Avail, and Near DA in the modular blockchain ecosystem.",
-    url: "https://messari.io/research",
+    url: "https://messari.io/report/modular-stack-celestia-eigenda-data-availability-competition",
   },
   {
     id: 10,
@@ -130,7 +130,7 @@ const researchPapers: ResearchPaper[] = [
     publishDate: "2024-12-25",
     category: "Infrastructure & UX",
     summary: "Comprehensive analysis of account abstraction adoption across Ethereum, Base, and Arbitrum. Examines gas sponsorship models, social recovery implementations, session keys, and how smart wallets are driving crypto's path to mainstream adoption with 10M+ active users.",
-    url: "https://www.bankless.com/",
+    url: "https://www.bankless.com/smart-wallets-revolution-erc-4337-adoption-at-scale",
   }
 ];
 
