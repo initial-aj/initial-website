@@ -41,6 +41,9 @@ export default function LanguageSwitcher({ className = '' }: LanguageSwitcherPro
     // Set cookie for server-side access
     document.cookie = `NEXT_LOCALE=${langCode};path=/;max-age=31536000`;
 
+    // Dispatch custom event for components to update
+    window.dispatchEvent(new CustomEvent('languageChange', { detail: { language: langCode } }));
+
     // Reload the page to apply new language
     window.location.reload();
   };

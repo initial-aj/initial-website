@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "about": "About",
+    "portfolio": "Portfolio",
+    "insights": "Insights",
+    "jobs": "Jobs",
+    "connect": "Connect"
+  },
+  "home": {
+    "ourFunds": "Our Funds",
+    "ultronFund": {
+      "title": "Ultron Fund",
+      "description": "Ultron is a quantitative hedge fund that delivers strong absolute returns across market cycles through a proprietary automated strategy based on the machine learning of the market data analysis; Ultron investing predominantly in leveraged Bitcoin markets to generate consistent alpha over a proven track record.",
+      "viewPerformance": "View Performance",
+      "investWithUs": "Invest With Us"
+    },
+    "ventureFund": {
+      "title": "Venture Fund",
+      "description": "Initial Ventures is an early-stage venture capital firm that focuses on decentralized finance, blockchain infrastructure, and Web3 innovation. We partner with ambitious founders building the future of digital assets and decentralized systems.",
+      "viewPortfolio": "View Portfolio",
+      "investWithUs": "Invest With Us"
+    },
+    "portfolioNews": "Portfolio News",
+    "updates": "Updates",
+    "viewArchive": "View Archive",
+    "source": "Source"
+  },
+  "footer": {
+    "disclaimer": "Any investments or portfolio companies mentioned, referred to, or described on this page are not representative of all investments in vehicles managed by Initial Ventures...",
+    "companyName": "INITIAL VENTURES",
+    "tagline": "Going Infinite",
+    "connectUs": "Connect Us",
+    "follow": "Follow Initial Ventures",
+    "terms": "Terms",
+    "privacy": "Privacy",
+    "disclosures": "Disclosures",
+    "copyright": "© 2026 Initial Ventures. All Rights Reserved."
+  },
+  "portfolio": {
+    "title": "Builders We've Supported",
+    "filterStage": "Stage",
+    "filterFocus": "Focus Area",
+    "clearFilters": "Clear all filters",
+    "noResults": "No companies match your filters",
+    "allStages": "All Stages",
+    "allFocus": "All Focus Areas"
+  },
+  "insights": {
+    "title": "Insights",
+    "subtitle": "Research and market analysis from our team",
+    "researchArticles": "Research Articles",
+    "liveNewsFeed": "Live News Feed",
+    "readMore": "Read More"
+  },
+  "jobs": {
+    "title": "Open Positions",
+    "subtitle": "Join portfolio companies building the future of Web3"
+  },
+  "connect": {
+    "title": "Connect With Us",
+    "subtitle": "Get in touch with our team",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message"
+  },
+  "ultron": {
+    "title": "Ultron Fund",
+    "subtitle": "An automated quantitative strategy leveraging volatility indexing and machine learning to outperform BTC.",
+    "cagr": "CAGR",
+    "cagrSub": "Annualized Return",
+    "maxDrawdown": "Max Drawdown",
+    "maxDrawdownSub": "Risk Management",
+    "calmarRatio": "Calmar Ratio",
+    "calmarSub": "Return vs Risk",
+    "sharpeRatio": "Sharpe Ratio",
+    "sharpeSub": "Risk-Adjusted Return",
+    "performanceChart": "Performance vs Benchmark",
+    "performanceSubtitle": "Cumulative returns comparison over time",
+    "ultronLabel": "Ultron",
+    "btcLabel": "BTC",
+    "strategyGrowth": "Strategy Growth",
+    "strategySubtitle": "Visualizing the compounding effect over time"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search companies, pages, funds...",
+    "filters": "FILTERS",
+    "allTypes": "All Types",
+    "allCategories": "All Categories",
+    "allStatus": "All Status",
+    "resultsFound": "results found",
+    "noResults": "No results found",
+    "tryAdjusting": "Try adjusting your search or filters",
+    "clearFilters": "Clear Filters",
+    "company": "Company",
+    "page": "Page",
+    "fund": "Fund",
+    "escToClose": "to close",
+    "toNavigate": "to navigate"
+  }
+}

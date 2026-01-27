@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Search, X, Filter, Building2, MapPin, Briefcase, Tag } from 'lucide-react';
 import Link from 'next/link';
+import { useTranslation } from '@/hooks/useTranslation';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -10,6 +11,7 @@ interface SearchModalProps {
 }
 
 export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedType, setSelectedType] = useState('All');
@@ -37,16 +39,16 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   // Sample search data - in a real app, this would come from an API
   const searchableContent = [
-    { type: 'Company', name: 'Backpack', category: 'Exchange', status: 'Active', url: '/portfolio#backpack' },
-    { type: 'Company', name: 'Solayer', category: 'DeFi', status: 'Active', url: '/portfolio#solayer' },
-    { type: 'Company', name: 'RateX', category: 'DeFi', status: 'Active', url: '/portfolio#ratex' },
-    { type: 'Company', name: 'Lombard', category: 'BTC', status: 'Active', url: '/portfolio#lombard' },
+    { type: 'Company', name: 'Backpack Exchange', category: 'Exchange', status: 'Active', url: '/portfolio#backpackexchange' },
+    { type: 'Company', name: 'Solayer SVM', category: 'DeFi', status: 'Active', url: '/portfolio#solayersvm' },
+    { type: 'Company', name: 'RateX_Dex', category: 'DeFi', status: 'Active', url: '/portfolio#ratex_dex' },
+    { type: 'Company', name: 'Lombard Finance', category: 'BTC', status: 'Active', url: '/portfolio#lombardfinance' },
     { type: 'Company', name: 'Raiku', category: 'Infrastructure', status: 'Active', url: '/portfolio#raiku' },
-    { type: 'Company', name: 'Primus Labs', category: 'Infrastructure', status: 'Active', url: '/portfolio#primus' },
+    { type: 'Company', name: 'Primus Labs', category: 'Infrastructure', status: 'Active', url: '/portfolio#primuslabs' },
     { type: 'Company', name: 'Perena', category: 'DeFi', status: 'Active', url: '/portfolio#perena' },
     { type: 'Company', name: 'StackingDAO', category: 'DeFi', status: 'Active', url: '/portfolio#stackingdao' },
-    { type: 'Company', name: 'ZEUS Network', category: 'Crosschain', status: 'Active', url: '/portfolio#zeus' },
-    { type: 'Company', name: 'Titan Exchange', category: 'Exchange', status: 'Active', url: '/portfolio#titan' },
+    { type: 'Company', name: 'ZEUS Network', category: 'Crosschain', status: 'Active', url: '/portfolio#zeusnetwork' },
+    { type: 'Company', name: 'Titan Exchange', category: 'Exchange', status: 'Active', url: '/portfolio#titanexchange' },
     { type: 'Company', name: 'OpenEden', category: 'RWA', status: 'Active', url: '/portfolio#openeden' },
     { type: 'Company', name: 'Sidekick', category: 'Consumer', status: 'Active', url: '/portfolio#sidekick' },
     { type: 'Company', name: 'BitFlow', category: 'DeFi', status: 'Active', url: '/portfolio#bitflow' },
@@ -80,7 +82,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         {/* Header */}
         <div className="border-b border-slate-200 p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-2xl font-bold text-slate-900">Search</h2>
+            <h2 className="text-2xl font-bold text-slate-900">{t('search.title')}</h2>
             <button
               onClick={onClose}
               className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
@@ -98,7 +100,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
               autoFocus
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search companies, pages, funds..."
+              placeholder={t('search.placeholder')}
               className="w-full pl-12 pr-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none text-lg"
             />
           </div>
@@ -108,7 +110,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
         <div className="border-b border-slate-200 p-6 bg-slate-50">
           <div className="flex items-center gap-2 mb-3">
             <Filter className="w-4 h-4 text-slate-600" />
-            <span className="text-sm font-semibold text-slate-700 uppercase tracking-wide">Filters</span>
+            <span className="text-sm font-semibold text-slate-700 uppercase tracking-wide">{t('search.filters')}</span>
           </div>
           <div className="flex flex-wrap gap-3">
             <select

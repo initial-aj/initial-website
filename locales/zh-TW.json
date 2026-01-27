@@ -1,0 +1,102 @@
+{
+  "nav": {
+    "about": "關於我們",
+    "portfolio": "投資組合",
+    "insights": "市場洞察",
+    "jobs": "職位招聘",
+    "connect": "聯繫我們"
+  },
+  "home": {
+    "ourFunds": "我們的基金",
+    "ultronFund": {
+      "title": "Ultron Fund",
+      "description": "Ultron 是一支量化對沖基金，通過基於機器學習的市場數據分析的專有自動化策略，在整個市場週期中提供強勁的絕對回報；Ultron 主要投資於槓桿比特幣市場，在經過驗證的業績記錄中產生持續的 Alpha。",
+      "viewPerformance": "查看表現",
+      "investWithUs": "與我們投資"
+    },
+    "ventureFund": {
+      "title": "Venture Fund",
+      "description": "Initial Ventures 是一家早期風險投資公司，專注於去中心化金融、區塊鏈基礎設施和 Web3 創新。我們與雄心勃勃的創始人合作，共同構建數字資產和去中心化系統的未來。",
+      "viewPortfolio": "查看投資組合",
+      "investWithUs": "與我們投資"
+    },
+    "portfolioNews": "投資組合新聞",
+    "updates": "更新",
+    "viewArchive": "查看存檔",
+    "source": "來源"
+  },
+  "footer": {
+    "disclaimer": "本頁面提及、引用或描述的任何投資或投資組合公司不代表 Initial Ventures 管理的所有投資...",
+    "companyName": "INITIAL VENTURES",
+    "tagline": "無限成長",
+    "connectUs": "聯繫我們",
+    "follow": "關注 Initial Ventures",
+    "terms": "條款",
+    "privacy": "隱私",
+    "disclosures": "披露",
+    "copyright": "© 2026 Initial Ventures. 版權所有。"
+  },
+  "portfolio": {
+    "title": "我們支持的建設者",
+    "filterStage": "階段",
+    "filterFocus": "專注領域",
+    "clearFilters": "清除所有篩選",
+    "noResults": "沒有公司符合您的篩選條件",
+    "allStages": "所有階段",
+    "allFocus": "所有專注領域"
+  },
+  "insights": {
+    "title": "市場洞察",
+    "subtitle": "來自我們團隊的研究和市場分析",
+    "researchArticles": "研究文章",
+    "liveNewsFeed": "即時新聞",
+    "readMore": "閱讀更多"
+  },
+  "jobs": {
+    "title": "招聘職位",
+    "subtitle": "加入正在構建 Web3 未來的投資組合公司"
+  },
+  "connect": {
+    "title": "與我們聯繫",
+    "subtitle": "與我們的團隊取得聯繫",
+    "name": "姓名",
+    "email": "電子郵件",
+    "message": "訊息",
+    "send": "發送訊息"
+  },
+  "ultron": {
+    "title": "Ultron Fund",
+    "subtitle": "利用波動率指數和機器學習的自動化量化策略，以超越 BTC 的表現。",
+    "cagr": "年化收益率",
+    "cagrSub": "年化回報",
+    "maxDrawdown": "最大回撤",
+    "maxDrawdownSub": "風險管理",
+    "calmarRatio": "卡瑪比率",
+    "calmarSub": "回報與風險",
+    "sharpeRatio": "夏普比率",
+    "sharpeSub": "風險調整後回報",
+    "performanceChart": "表現與基準對比",
+    "performanceSubtitle": "隨時間累積回報比較",
+    "ultronLabel": "Ultron",
+    "btcLabel": "BTC",
+    "strategyGrowth": "策略增長",
+    "strategySubtitle": "可視化複利效應"
+  },
+  "search": {
+    "title": "搜尋",
+    "placeholder": "搜尋公司、頁面、基金...",
+    "filters": "篩選",
+    "allTypes": "所有類型",
+    "allCategories": "所有類別",
+    "allStatus": "所有狀態",
+    "resultsFound": "個結果",
+    "noResults": "未找到結果",
+    "tryAdjusting": "嘗試調整您的搜尋或篩選",
+    "clearFilters": "清除篩選",
+    "company": "公司",
+    "page": "頁面",
+    "fund": "基金",
+    "escToClose": "關閉",
+    "toNavigate": "導航"
+  }
+}

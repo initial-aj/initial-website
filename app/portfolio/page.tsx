@@ -86,7 +86,7 @@ const featuredCompanies: Company[] = [
     newsTitle: "Pantera-backed Raiku raises $13.5M",
     newsSnippet: "Raiku announced today that it has raised $13.5 million to bring the power of predictability to high-performance blockchains.",
     twitterUrl: "https://x.com/raikucom",
-    websiteUrl: "https://www.raiku.com/"
+    websiteUrl: "https://raiku.com/"
   },
   {
     id: 4,
