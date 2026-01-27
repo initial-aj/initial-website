@@ -37,14 +37,23 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
 
   // Sample search data - in a real app, this would come from an API
   const searchableContent = [
-    { type: 'Company', name: 'Backpack', category: 'Exchange', status: 'Active', url: '/portfolio' },
-    { type: 'Company', name: 'Solayer', category: 'DeFi', status: 'Active', url: '/portfolio' },
-    { type: 'Company', name: 'RateX', category: 'DeFi', status: 'Active', url: '/portfolio' },
-    { type: 'Company', name: 'Lombard', category: 'BTC', status: 'Active', url: '/portfolio' },
-    { type: 'Company', name: 'Raiku', category: 'Infrastructure', status: 'Active', url: '/portfolio' },
+    { type: 'Company', name: 'Backpack', category: 'Exchange', status: 'Active', url: '/portfolio#backpack' },
+    { type: 'Company', name: 'Solayer', category: 'DeFi', status: 'Active', url: '/portfolio#solayer' },
+    { type: 'Company', name: 'RateX', category: 'DeFi', status: 'Active', url: '/portfolio#ratex' },
+    { type: 'Company', name: 'Lombard', category: 'BTC', status: 'Active', url: '/portfolio#lombard' },
+    { type: 'Company', name: 'Raiku', category: 'Infrastructure', status: 'Active', url: '/portfolio#raiku' },
+    { type: 'Company', name: 'Primus Labs', category: 'Infrastructure', status: 'Active', url: '/portfolio#primus' },
+    { type: 'Company', name: 'Perena', category: 'DeFi', status: 'Active', url: '/portfolio#perena' },
+    { type: 'Company', name: 'StackingDAO', category: 'DeFi', status: 'Active', url: '/portfolio#stackingdao' },
+    { type: 'Company', name: 'ZEUS Network', category: 'Crosschain', status: 'Active', url: '/portfolio#zeus' },
+    { type: 'Company', name: 'Titan Exchange', category: 'Exchange', status: 'Active', url: '/portfolio#titan' },
+    { type: 'Company', name: 'OpenEden', category: 'RWA', status: 'Active', url: '/portfolio#openeden' },
+    { type: 'Company', name: 'Sidekick', category: 'Consumer', status: 'Active', url: '/portfolio#sidekick' },
+    { type: 'Company', name: 'BitFlow', category: 'DeFi', status: 'Active', url: '/portfolio#bitflow' },
     { type: 'Page', name: 'Portfolio', category: 'Navigation', status: 'Active', url: '/portfolio' },
     { type: 'Page', name: 'Jobs', category: 'Navigation', status: 'Active', url: '/jobs' },
     { type: 'Page', name: 'Connect', category: 'Navigation', status: 'Active', url: '/connect' },
+    { type: 'Page', name: 'Insights', category: 'Navigation', status: 'Active', url: '/insights' },
     { type: 'Fund', name: 'Ultron Fund', category: 'Quantitative', status: 'Active', url: '/ultron' },
     { type: 'Fund', name: 'Venture Fund', category: 'Venture', status: 'Active', url: '/' },
   ];

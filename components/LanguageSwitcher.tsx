@@ -13,8 +13,8 @@ export default function LanguageSwitcher({ className = '' }: LanguageSwitcherPro
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'zh-TW', name: '繁體中文', flag: '🇹🇼' }
+    { code: 'en', name: 'English' },
+    { code: 'zh-TW', name: '繁體中文' }
   ];
 
   useEffect(() => {
@@ -66,7 +66,6 @@ export default function LanguageSwitcher({ className = '' }: LanguageSwitcherPro
               }`}
             >
               <span className="flex items-center gap-2">
-                <span className="text-xl">{lang.flag}</span>
                 <span className="font-medium">{lang.name}</span>
               </span>
               {currentLang === lang.code && (

@@ -489,10 +489,11 @@ export default function Portfolio() {
             <div className="max-w-7xl mx-auto px-6 pb-16">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {filteredFeatured.map((company) => (
-                    <div 
-                        key={company.id} 
+                    <div
+                        key={company.id}
+                        id={company.name.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}
                         onClick={() => setSelectedCompany(company)}
-                        className="group relative h-[400px] w-full cursor-pointer overflow-hidden rounded-sm"
+                        className="group relative h-[400px] w-full cursor-pointer overflow-hidden rounded-sm scroll-mt-32"
                     >
                     <div className={`absolute inset-0 bg-gradient-to-br ${company.color} transition-transform duration-500 group-hover:scale-105`}>
                          <img src={company.image} alt={company.name} className="w-full h-full object-cover opacity-20 mix-blend-overlay" /> 
@@ -526,10 +527,11 @@ export default function Portfolio() {
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1">
                 {filteredLogos.map((company) => (
-                <div 
-                    key={company.id} 
+                <div
+                    key={company.id}
+                    id={company.name.toLowerCase().replace(/\s+/g, '').replace(/[^a-z0-9]/g, '')}
                     onClick={() => setSelectedCompany(company)}
-                    className="group bg-white flex flex-col cursor-pointer transition-all duration-300 hover:shadow-md rounded-sm border border-gray-200 overflow-hidden"
+                    className="group bg-white flex flex-col cursor-pointer transition-all duration-300 hover:shadow-md rounded-sm border border-gray-200 overflow-hidden scroll-mt-32"
                 >
                     <div className="h-40 flex items-center justify-center p-6 relative bg-gray-50 group-hover:bg-white transition-colors">
                         <span className="text-2xl md:text-3xl font-bold text-slate-700 z-10 text-center">
